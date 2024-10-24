@@ -3,11 +3,11 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # Đọc ảnh gốc
-image = cv2.imread('anh/bai1.jpg', cv2.IMREAD_GRAYSCALE) # Đọc ảnh dưới dạng grayscale (ảnh xám)
+image = cv2.imread('anh/bai1.jpg', cv2.IMREAD_GRAYSCALE)
 
 # 1. Dò biên với toán tử Sobel
-sobel_x = cv2.Sobel(image, cv2.CV_64F, 1, 0, ksize=3)  # Gradient theo trục x
-sobel_y = cv2.Sobel(image, cv2.CV_64F, 0, 1, ksize=3)  # Gradient theo trục y
+sobel_x = cv2.filter2D(image, cv2.CV_64F, np.array([[-1, 0, 1], [-2, 0, 2], [-1, 0, 1]]))  # Gradient theo trục x
+sobel_y = cv2.filter2D(image, cv2.CV_64F, np.array([[-1, -2, -1], [0, 0, 0], [1, 2, 1]]))  # Gradient theo trục y
 sobel_combined = cv2.magnitude(sobel_x, sobel_y)  # Tổng hợp gradient theo cả hai hướng
 
 # 2. Dò biên với toán tử Laplace Gaussian
